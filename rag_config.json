@@ -1,0 +1,25 @@
+{
+  "source_paths": [
+    "/Users/jpromero/CentralizedLibrary",
+    "/Users/jpromero/Desktop",
+    "/Users/jpromero/Documents"
+  ],
+  "exclude_paths": [
+    "/Users/jpromero/.Trash",
+    "/System",
+    "/Library",
+    "/Applications",
+    "/dev",
+    "/proc"
+  ],
+  "database_path": "/Users/jpromero/LocalRAG/rag_index.sqlite3",
+  "chunk_size": 1200,
+  "chunk_overlap": 180,
+  "max_files": 0,
+  "ollama_model": "llama3.1:8b",
+  "top_k": 6,
+  "allowed_extensions": [
+    ".txt", ".md", ".csv", ".json", ".jsonl", ".xml", ".html", ".htm",
+    ".pdf", ".docx", ".pptx", ".py", ".js", ".ts", ".java", ".go", ".rs", ".sql", ".log"
+  ]
+}

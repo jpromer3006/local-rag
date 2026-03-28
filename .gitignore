@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environments
+venv/
+.venv/
+
+# Environment files
+.env
+.env.*
+
+# Local databases and artifacts
+*.sqlite3
+chroma_db/
+latest_ingest_report.json
+smoke_ingest_report.json
+ingest_report.json
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
+
+# Logs
+*.log
