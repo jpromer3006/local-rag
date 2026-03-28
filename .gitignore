@@ -13,6 +13,8 @@ venv/
 
 # Local databases and artifacts
 *.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
 chroma_db/
 latest_ingest_report.json
 smoke_ingest_report.json
