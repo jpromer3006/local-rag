@@ -1,18 +1,15 @@
 {
   "source_paths": [
-    "/Users/jpromero/CentralizedLibrary",
-    "/Users/jpromero/Desktop",
-    "/Users/jpromero/Documents"
+    "~/Documents",
+    "~/Desktop"
   ],
   "exclude_paths": [
-    "/Users/jpromero/.Trash",
+    "~/.Trash",
     "/System",
     "/Library",
-    "/Applications",
-    "/dev",
-    "/proc"
+    "/Applications"
   ],
-  "database_path": "/Users/jpromero/LocalRAG/rag_index.sqlite3",
+  "database_path": "./rag_index.sqlite3",
   "chunk_size": 1200,
   "chunk_overlap": 180,
   "max_files": 0,
