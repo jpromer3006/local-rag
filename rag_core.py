@@ -32,6 +32,16 @@ try:
 except Exception:
     Presentation = None
 
+try:
+    from openpyxl import load_workbook  # type: ignore
+except Exception:
+    load_workbook = None
+
+try:
+    import pandas as _pd  # type: ignore
+except Exception:
+    _pd = None
+
 
 SUPPORTED_TEXT_EXTS = {
     ".txt", ".md", ".csv", ".json", ".jsonl", ".xml", ".html", ".htm",
@@ -68,7 +78,7 @@ def load_config(config_path: Path) -> Dict[str, object]:
 
 def category_for_path(path: Path) -> str:
     ext = path.suffix.lower()
-    if ext in {".pdf", ".doc", ".docx", ".ppt", ".pptx", ".txt", ".md", ".csv"}:
+    if ext in {".pdf", ".doc", ".docx", ".ppt", ".pptx", ".txt", ".md", ".csv", ".xlsx", ".xls"}:
         return "documents"
     if ext in {".py", ".js", ".ts", ".java", ".go", ".rs", ".sql", ".sh", ".zsh"}:
         return "code"
@@ -166,6 +176,44 @@ def read_pptx(path: Path) -> str:
     return "\n\n".join(slides)
 
 
+def read_xlsx(path: Path) -> str:
+    if load_workbook is None:
+        return ""
+    wb = load_workbook(str(path), read_only=True, data_only=True)
+    parts: List[str] = []
+    for sheet_name in wb.sheetnames:
+        ws = wb[sheet_name]
+        rows: List[str] = []
+        for row in ws.iter_rows(values_only=True):
+            cells = [str(c) if c is not None else "" for c in row]
+            if any(c.strip() for c in cells):
+                rows.append("\t".join(cells))
+        if rows:
+            parts.append(f"[Sheet: {sheet_name}]\n" + "\n".join(rows))
+    wb.close()
+    return "\n\n".join(parts)
+
+
+def read_xls(path: Path) -> str:
+    if _pd is None:
+        return ""
+    try:
+        xl = _pd.ExcelFile(str(path), engine="xlrd")
+    except Exception:
+        return ""
+    parts: List[str] = []
+    for sheet_name in xl.sheet_names:
+        df = xl.parse(sheet_name, header=None)
+        rows: List[str] = []
+        for _, row in df.iterrows():
+            cells = [str(c) if _pd.notna(c) else "" for c in row]
+            if any(c.strip() for c in cells):
+                rows.append("\t".join(cells))
+        if rows:
+            parts.append(f"[Sheet: {sheet_name}]\n" + "\n".join(rows))
+    return "\n\n".join(parts)
+
+
 def extract_text(path: Path) -> str:
     ext = path.suffix.lower()
     if ext in SUPPORTED_TEXT_EXTS:
@@ -176,6 +224,10 @@ def extract_text(path: Path) -> str:
         return read_docx(path)
     if ext == ".pptx":
         return read_pptx(path)
+    if ext == ".xlsx":
+        return read_xlsx(path)
+    if ext == ".xls":
+        return read_xls(path)
     return ""
 
 

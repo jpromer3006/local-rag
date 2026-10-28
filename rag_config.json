@@ -20,6 +20,6 @@
   "top_k": 6,
   "allowed_extensions": [
     ".txt", ".md", ".csv", ".json", ".jsonl", ".xml", ".html", ".htm",
-    ".pdf", ".docx", ".pptx", ".py", ".js", ".ts", ".java", ".go", ".rs", ".sql", ".log"
+    ".pdf", ".docx", ".pptx", ".xlsx", ".xls", ".py", ".js", ".ts", ".java", ".go", ".rs", ".sql", ".log"
   ]
 }

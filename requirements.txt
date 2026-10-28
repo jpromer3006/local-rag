@@ -7,3 +7,7 @@ pytesseract>=0.3.10
 chromadb>=0.4.24
 sentence-transformers>=2.7.0
 ollama>=0.2.0
+openpyxl>=3.1.0
+google-api-python-client>=2.100.0
+google-auth-oauthlib>=1.1.0
+google-auth-httplib2>=0.1.1
